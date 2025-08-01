@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Posts</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .travel-card {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">🌍 Travel Posts</h1>
+
+        <!-- Navigation -->
+        <div class="mb-3">
+            <a href="{% url 'travel_create' %}" class="btn btn-primary">Create New Travel Post</a>
+        </div>
+
+        <!-- Search -->
+        <form method="get" action="{% url 'index' %}" class="input-group mb-4">
+            <input type="text" name="q" placeholder="Search by Name..."  class="form-control">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </form>
+
+        <!-- Travel Posts -->
+        <div class="list-group">
+            {% for travel in travels %}
+                <div class="list-group-item travel-card">
+                    <h5 class="mb-1">{{ travel.Name }}</h5>
+                    <p class="mb-1 text-muted">{{ travel.Description|truncatewords:20 }}</p>
+                    <a href="{% url 'travel_detail' travel.id %}" class="btn btn-sm btn-info">View Details</a>
+                </div>
+            {% empty %}
+                <div class="alert alert-warning">No travel posts found.</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS for interactivity (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
